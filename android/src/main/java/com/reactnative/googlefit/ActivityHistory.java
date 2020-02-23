@@ -144,4 +144,64 @@ public class ActivityHistory {
         
         return results;
     }
+    
+    public void submitWorkout(String workoutType, long startTime, long endTime) throws Exception {
+        Session session = new Session.Builder()
+                .setActivity(getActivityType(workoutType))
+                .setIdentifier(UUID.randomUUID().toString())
+                .setStartTime(startTime, TimeUnit.MILLISECONDS)
+                .setEndTime(endTime, TimeUnit.MILLISECONDS)
+                .build();
+    
+        SessionInsertRequest insertRequest = new SessionInsertRequest.Builder()
+            .setSession(session)
+            .build();
+
+        Status status = Fitness.SessionsApi.insertSession(googleFitManager.getGoogleApiClient(), insertRequest).await(1, TimeUnit.MINUTES);
+        if (!status.isSuccess()) {
+            throw new Exception(status.getStatusMessage());
+        }
+    }
+    
+    private String getActivityType(String workoutType) {
+        String activityType;
+
+        switch (workoutType) {
+            case "highIntensityIntervalTraining":
+                activityType = FitnessActivities.HIGH_INTENSITY_INTERVAL_TRAINING;
+                break;
+            case "walk":
+                activityType = FitnessActivities.WALKING;
+                break;
+            case "run":
+                activityType = FitnessActivities.RUNNING;
+                break;
+            case "yoga":
+                activityType = FitnessActivities.YOGA;
+                break;
+            case "strengthTraining":
+                activityType = FitnessActivities.STRENGTH_TRAINING;
+                break;
+            case "swimming":
+                activityType = FitnessActivities.SWIMMING;
+                break;
+            case "cycling":
+                activityType = FitnessActivities.BIKING;
+                break;
+            case "mindfulness":
+                activityType = FitnessActivities.MEDITATION;
+                break;
+            case "dance":
+                activityType = FitnessActivities.DANCING;
+                break;
+            case "crossTraining":
+                activityType = FitnessActivities.CROSSFIT;
+                break;
+            default:
+                activityType = FitnessActivities.OTHER;
+                break;
+        }
+
+        return activityType;
+    }
 }
