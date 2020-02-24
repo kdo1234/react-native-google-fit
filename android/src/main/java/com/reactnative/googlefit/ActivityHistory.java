@@ -150,7 +150,7 @@ public class ActivityHistory {
         return results;
     }
     
-    public void submitWorkout(String workoutType, String name. long startTime, long endTime) throws Exception {
+    public void submitWorkout(String workoutType, long startTime, long endTime, String name) throws Exception {
         Session session = new Session.Builder()
                 .setActivity(getActivityType(workoutType))
                 .setName(name)
