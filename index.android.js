@@ -226,6 +226,7 @@ class RNGoogleFit {
       options.workoutType,
       options.startDate,
       options.endDate,
+      options.name,
       (error) => {
         callback(error, false);
       },
