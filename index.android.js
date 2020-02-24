@@ -221,6 +221,20 @@ class RNGoogleFit {
     )
   }
 
+  submitWorkout(options, callback) {
+    googleFit.submitWorkout(
+      options.workoutType,
+      options.startDate,
+      options.endDate,
+      (error) => {
+        callback(error, false);
+      },
+      (res) => {
+        callback(false, res);
+      });
+  }
+
+
   /**
    * Get the total calories per day over a specified date range.
    * @param {Object} options getDailyCalorieSamples accepts an options object containing:
