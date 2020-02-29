@@ -92,7 +92,7 @@ public class GoogleFitModule extends ReactContextBaseJavaModule implements Lifec
             scopesList.add(type.toString());
         }
 
-        mGoogleFitManager.authorize(scopesList);
+        mGoogleFitManager.authorize(scopesList, options.getBoolean("enableSignInDialog"));
     }
 
     @ReactMethod
