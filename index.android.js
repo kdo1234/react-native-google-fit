@@ -42,8 +42,10 @@ class RNGoogleFit {
           Scopes.FITNESS_LOCATION_READ,
         ]
 
+        let {enableSignInDialog = false} = defaultScopes || {};
         googleFit.authorize({
           scopes: (options && options.scopes) || defaultScopes,
+          enableSignInDialog,
         })
       })
       return authResult
