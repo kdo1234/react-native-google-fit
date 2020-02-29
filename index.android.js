@@ -42,7 +42,7 @@ class RNGoogleFit {
           Scopes.FITNESS_LOCATION_READ,
         ]
 
-        let {enableSignInDialog = false} = defaultScopes || {};
+        let {enableSignInDialog = true} = defaultScopes || {};
         googleFit.authorize({
           scopes: (options && options.scopes) || defaultScopes,
           enableSignInDialog,
