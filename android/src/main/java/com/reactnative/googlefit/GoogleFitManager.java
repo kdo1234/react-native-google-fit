@@ -125,7 +125,7 @@ public class GoogleFitManager implements
 
     public HydrationHistory getHydrationHistory() { return hydrationHistory; }
 
-    public void authorize(ArrayList<String> userScopes) {
+    public void authorize(ArrayList<String> userScopes, final boolean enableSignInDialog) {
         final ReactContext mReactContext = this.mReactContext;
 
         GoogleApiClient.Builder apiClientBuilder = new GoogleApiClient.Builder(mReactContext.getApplicationContext())
@@ -164,12 +164,16 @@ public class GoogleFitManager implements
                                 if (mAuthInProgress) {
                                     Log.i(TAG, "Authorization - Already attempting to resolve an error.");
                                 } else if (connectionResult.hasResolution()) {
-                                    try {
-                                        mAuthInProgress = true;
-                                        connectionResult.startResolutionForResult(mActivity, REQUEST_OAUTH);
-                                    } catch (IntentSender.SendIntentException e) {
-                                        Log.i(TAG, "Authorization - Failed again: " + e);
-                                        mApiClient.connect();
+                                    if (enableSignInDialog)
+                                        try {
+                                            mAuthInProgress = true;
+                                            connectionResult.startResolutionForResult(mActivity, REQUEST_OAUTH);
+                                        } catch (IntentSender.SendIntentException e) {
+                                            Log.i(TAG, "Authorization - Failed again: " + e);
+                                            mApiClient.connect();
+                                        }
+                                    } else {
+                                        Log.i(TAG, "Authorization - Needs sign in but not enabled");
                                     }
                                 } else {
                                     Log.i(TAG, "Show dialog using GoogleApiAvailability.getErrorDialog()");
