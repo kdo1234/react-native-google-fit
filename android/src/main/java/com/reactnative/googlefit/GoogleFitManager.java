@@ -177,7 +177,9 @@ public class GoogleFitManager implements
                                     }
                                 } else {
                                     Log.i(TAG, "Show dialog using GoogleApiAvailability.getErrorDialog()");
-                                    showErrorDialog(connectionResult.getErrorCode());
+                                    if (enableSignInDialog) {
+                                        showErrorDialog(connectionResult.getErrorCode());
+                                    }
                                     mAuthInProgress = true;
                                     WritableMap map = Arguments.createMap();
                                     map.putString("message", "" + connectionResult);
