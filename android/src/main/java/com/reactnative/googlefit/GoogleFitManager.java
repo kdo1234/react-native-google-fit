@@ -164,7 +164,7 @@ public class GoogleFitManager implements
                                 if (mAuthInProgress) {
                                     Log.i(TAG, "Authorization - Already attempting to resolve an error.");
                                 } else if (connectionResult.hasResolution()) {
-                                    if (enableSignInDialog)
+                                    if (enableSignInDialog) {
                                         try {
                                             mAuthInProgress = true;
                                             connectionResult.startResolutionForResult(mActivity, REQUEST_OAUTH);
