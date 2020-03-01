@@ -199,6 +199,7 @@ declare module 'react-native-google-fit' {
 
   export interface AuthorizeOptions {
     scopes: Array<Scopes>
+    enableSignInDialog: boolean 
   }
 
   export interface Hydration {
